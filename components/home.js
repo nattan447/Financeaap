@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import Contextsalario from "../contexts/contextsalary";
-import Homestyle from "../syles/homesty";
+// import Homestyle from "../syles/homesty";
 import Btnavigator from "./btnavigator";
 
 export default function Home({ route, navigation }) {
@@ -17,8 +17,23 @@ export default function Home({ route, navigation }) {
     var { salario } = route.params;
   }
   return (
-    <View style={Homestyle.contanier}>
+    <View style={currenstyle.contanier}>
       <Btnavigator navigation={navigation} salario={salario} />
     </View>
   );
 }
+
+const currenstyle = StyleSheet.create({
+  contanier: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  salarytxt: {
+    fontSize: 60,
+  },
+  selectscreen: {
+    backgroundColor: "white",
+    height: 200,
+    justifyContent: "center",
+  },
+});

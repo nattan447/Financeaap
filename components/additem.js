@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { ImageComponent, StyleSheet, Text, View, Button } from "react-native";
 import { useEffect, useState } from "react";
-import Home from "./home";
+
 import Btnavigator from "./btnavigator";
+import { StackActions } from "@react-navigation/native";
 
 const Additem = ({ route, navigation }) => {
   const { salario } = route.params;

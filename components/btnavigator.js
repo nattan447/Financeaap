@@ -9,32 +9,51 @@ import {
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import Contextsalario from "../contexts/contextsalary";
-import Homestyle from "../syles/homesty";
+// import Homestyle from "../syles/homesty";
 
 export default function Btnavigator({ salario, route, navigation }) {
   return (
-    <View style={Homestyle.contanier}>
-      <View style={Homestyle.selectscreen}>
+    <View style={buttonstyle.contanier}>
+      <View style={buttonstyle.selectscreen}>
         <Text style={{ color: "black" }}>{salario}R$</Text>
-        <Button
-          title="home"
+
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("home", { salario: salario });
           }}
-        ></Button>
-        <Button
-          title="adicionar items"
+        >
+          <Text>home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("additem", { salario: salario });
           }}
-        ></Button>
-        <Button
-          title="resultado"
+        >
+          <Text>adicionar gastos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("resultado", { salario: salario });
           }}
-        ></Button>
+        >
+          <Text>resultado</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
+const buttonstyle = StyleSheet.create({
+  contanier: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  salarytxt: {
+    fontSize: 60,
+  },
+  selectscreen: {
+    backgroundColor: "white",
+    height: 200,
+    justifyContent: "center",
+  },
+});
