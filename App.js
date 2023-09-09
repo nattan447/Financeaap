@@ -5,6 +5,7 @@ import Home from "./components/home";
 import Salary from "./components/salary";
 import Result from "./components/result";
 import Additem from "./components/additem";
+import DropdownComponent from "./components/dropcomponent";
 
 import Salaryctx from "./contexts/contextsalary"; // importa o contexto
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -15,26 +16,6 @@ import Btnavigator from "./components/btnavigator";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-// const Threebarshome = ({ route }) => {
-//   return (
-//     <Salaryctx.Provider value={{ salario: route.params }}>
-//       <NavigationContainer independent={true}>
-//         <Tab.Navigator
-//           screenOptions={{
-//             tabBarLabelStyle: {
-//               fontSize: 14,
-//             },
-//           }}
-//         >
-//           <Tab.Screen name="home" component={Home} />
-//           <Tab.Screen name="resultado" component={Result} />
-//           <Tab.Screen name="adicionar item" component={Additem} />
-//         </Tab.Navigator>
-//       </NavigationContainer>
-//     </Salaryctx.Provider>
-//   );
-// };
 
 export default function App() {
   return (
@@ -50,12 +31,34 @@ export default function App() {
           name="home"
           options={{
             headerBackVisible: false,
+            headerShown: false,
           }}
           component={Home}
         />
-        <Stack.Screen name="additem" options={{}} component={Additem} />
-        <Stack.Screen name="resultado" options={{}} component={Result} />
-        <Stack.Screen name="btnavigator" options={{}} component={Btnavigator} />
+        <Stack.Screen
+          name="additem"
+          options={{
+            headerShown: false,
+          }}
+          component={Additem}
+        />
+        <Stack.Screen
+          name="resultado"
+          options={{
+            headerShown: false,
+          }}
+          component={Result}
+        />
+        <Stack.Screen
+          name="btnavigator"
+          options={{ headerShown: false }}
+          component={Btnavigator}
+        />
+        <Stack.Screen
+          name="drop"
+          options={{ headerShown: false }}
+          component={DropdownComponent}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

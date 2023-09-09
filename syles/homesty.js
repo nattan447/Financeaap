@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import Home from "../components/home";
 
 const Homesty = StyleSheet.create({
   contanier: {

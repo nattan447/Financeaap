@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import Btnavigator from "./btnavigator";
 
 const Result = ({ route, navigation }) => {
-  const { salario } = route.params;
+  const { salario, valor } = route.params;
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ alignItems: "center", justifyContent: "center" }}>
       <Btnavigator navigation={navigation} salario={salario} />
+      <Text>{valor}</Text>
     </View>
   );
 };
