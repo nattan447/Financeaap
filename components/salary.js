@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
 import {
   Button,
   ImageComponent,
@@ -7,12 +7,12 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-} from "react-native";
-import { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./home";
-import Loginstys from "../syles/loginsty";
+} from 'react-native';
+import { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './home';
+import Loginstys from '../syles/loginsty';
 
 export default function Salary({ navigation, route }) {
   const { user } = route.params;
@@ -22,8 +22,8 @@ export default function Salary({ navigation, route }) {
   }
   function gohome() {
     if (salary != undefined) {
-      navigation.navigate("home", { salario: salary });
-    } else alert("cade o salario");
+      navigation.navigate('home', { salario: salary });
+    } else alert('cade o salario');
   }
 
   return (
@@ -39,7 +39,7 @@ export default function Salary({ navigation, route }) {
           ></TextInput>
         </View>
         <TouchableOpacity style={Loginstys.loginbtn} onPress={gohome}>
-          <Text style={{ color: "white" }}>Ir em frente</Text>
+          <Text style={{ color: 'white' }}>Ir em frente</Text>
         </TouchableOpacity>
       </View>
     </View>
