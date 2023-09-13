@@ -42,7 +42,11 @@ export default function App() {
           }}
           component={Additem}
         />
-        <Stack.Screen name="resultado" options={{}} component={Result} />
+        <Stack.Screen
+          name="resultado"
+          options={{ headerShown: false }}
+          component={Result}
+        />
         <Stack.Screen
           name="btnavigator"
           options={{ headerShown: false }}

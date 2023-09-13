@@ -16,6 +16,9 @@ const DropdownComponent = ({ salario, navigation }) => {
   const [value, setValue] = useState(undefined);
   const [isFocus, setIsFocus] = useState(false);
   const [arraylazer, Setarraylazer] = useState([]);
+  const [arrayComida, SetarrayComida] = useState([]);
+  const [arraySaude, SetarraySaude] = useState([]);
+  const [arrayOutros, SetarrayOutros] = useState([]);
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -29,13 +32,26 @@ const DropdownComponent = ({ salario, navigation }) => {
       //o valor é uma variavel que vem do add items
       Setarraylazer((current) => [...current, valor]); // pego os items que estão na categoria lazer
       Setvalor(undefined);
-    }
+    } else if (value === 'Comida') {
+      SetarrayComida((current) => [...current, valor]);
+      Setvalor(undefined);
+    } else if (value === 'Saúde') {
+      SetarraySaude((current) => [...current, valor]);
+      Setvalor(undefined);
+    } else if (value === 'Outros') {
+      SetarrayOutros((current) => [...current, valor]);
+      Setvalor(undefined);
+    } else alert('selecione um campo');
   }
 
   function navigateResult() {
     // quero pegar o array de lazer e ir para a outra página
     navigation.navigate('resultado', {
       itenslazer: arraylazer,
+      valorsaude: arraySaude,
+      valorcomida: arrayComida,
+      valoroutros: arrayOutros,
+      salario: salario,
     });
   }
 
