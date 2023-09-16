@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import {
   Button,
   ImageComponent,
@@ -7,21 +7,21 @@ import {
   View,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import { useEffect, useState, useContext } from 'react';
-import Contextsalario from '../contexts/contextsalary';
-import areacontext from '../contexts/contextarea';
+} from "react-native";
+import { useEffect, useState, useContext } from "react";
+import Contextsalario from "../contexts/contextsalary";
+import areacontext from "../contexts/contextarea";
 // import Homestyle from "../syles/homesty";
 
 export default function Btnavigator({ listlazer, salario, route, navigation }) {
   return (
     <View style={buttonstyle.contanier}>
-      <View style={{ marginTop: 100 }}>
-        <Text style={{ textAlign: 'center' }}>atual salário </Text>
-        <Text style={{ fontSize: 40, fontWeight: 'bold' }}>
-          {Number(salario).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
+      <View style={{ marginTop: 60 }}>
+        <Text style={{ textAlign: "center" }}>atual salário </Text>
+        <Text style={{ fontSize: 40, fontWeight: "bold" }}>
+          {Number(salario).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
           })}
         </Text>
       </View>
@@ -29,13 +29,13 @@ export default function Btnavigator({ listlazer, salario, route, navigation }) {
         <TouchableOpacity
           style={buttonstyle.btns}
           onPress={() => {
-            navigation.navigate('home', {
+            navigation.navigate("home", {
               salario: salario,
             });
           }}
         >
           <Image
-            source={require('../assets/home.png')}
+            source={require("../assets/home.png")}
             style={{ height: 40, width: 40 }}
           ></Image>
         </TouchableOpacity>
@@ -43,13 +43,13 @@ export default function Btnavigator({ listlazer, salario, route, navigation }) {
         <TouchableOpacity
           style={buttonstyle.btns}
           onPress={() => {
-            navigation.navigate('additem', {
+            navigation.navigate("additem", {
               salario: salario,
             });
           }}
         >
           <Image
-            source={require('../assets/plus.png')}
+            source={require("../assets/plus.png")}
             style={{ height: 40, width: 40 }}
           ></Image>
         </TouchableOpacity>
@@ -73,28 +73,31 @@ export default function Btnavigator({ listlazer, salario, route, navigation }) {
 }
 const buttonstyle = StyleSheet.create({
   contanier: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   salarytxt: {
     fontSize: 60,
   },
   selectscreen: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: 100,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: '40%',
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "30%",
     borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+    width: 270,
   },
   btns: {
     marginHorizontal: 10,
-    backgroundColor: '#D3D3D3',
+    backgroundColor: "#D3D3D3",
     height: 60,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 10,
     width: 80,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

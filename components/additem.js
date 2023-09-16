@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import {
   ImageComponent,
   StyleSheet,
@@ -7,15 +7,15 @@ import {
   Button,
   TextInput,
   SafeAreaView,
-} from 'react-native';
-import { useEffect, useState, createContext } from 'react';
-import Homesty from '../syles/homesty';
-import Addsty from '../syles/addsty';
-import Btnavigator from './btnavigator';
-import areacontext from '../contexts/contextarea';
+} from "react-native";
+import { useEffect, useState, createContext } from "react";
+import Homesty from "../syles/homesty";
+import Addsty from "../syles/addsty";
+import Btnavigator from "./btnavigator";
+import areacontext from "../contexts/contextarea";
 
-import { StackActions } from '@react-navigation/native';
-import DropdownComponent from './dropcomponent';
+import { StackActions } from "@react-navigation/native";
+import DropdownComponent from "./dropcomponent";
 
 const Additem = ({ route, navigation }) => {
   const { salario } = route.params;
@@ -35,6 +35,7 @@ const Additem = ({ route, navigation }) => {
         <View style={Addsty.inputview}>
           <Text>item</Text>
           <TextInput
+            style={Addsty.input}
             placeholder="adicione o valor"
             value={valor}
             onChangeText={handlevalue}
