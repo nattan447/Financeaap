@@ -4,7 +4,7 @@ const Addsty = StyleSheet.create({
   contanier: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F8F8FF",
+    backgroundColor: "#FFFFFF",
   },
   inputview: {
     backgroundColor: "white",

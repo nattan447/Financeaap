@@ -6,6 +6,7 @@ import {
   View,
   Button,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Resultsty from "../syles/resultsty";
@@ -44,15 +45,10 @@ const Result = ({ route, navigation }) => {
   const somatotal = somacomida + somaoutros + somalazer + somasaude;
 
   const tranformtoporcent = (value) => {
-    return (value * 100) / somatotal;
+    return ((value * 100) / somatotal).toFixed(1);
   };
 
-  useEffect(() => {
-    alert(somacomida);
-    alert(somalazer);
-    alert(somaoutros);
-    alert(somasaude);
-  }, []);
+  useEffect(() => {}, []);
   const data = [
     tranformtoporcent(somacomida) == 0
       ? { x: null, y: null }
@@ -79,19 +75,33 @@ const Result = ({ route, navigation }) => {
           y: tranformtoporcent(somaoutros),
         },
   ];
+
   return (
     <SafeAreaView style={Resultsty.contanier}>
-      <Button title="clique aqui" onPress={retornar}></Button>
+      <View style={Resultsty.btnvoltardiv}>
+        <TouchableOpacity onPress={retornar} style={Resultsty.btn}>
+          <Text style={Resultsty.txtbtn}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={Resultsty.textosgastos}>
+        Seus gastos foram de :
+        {somatotal.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </Text>
       {/* <Text>{somalazer}</Text>
       <Text>{somacomida}</Text>
       <Text>{somasaude}</Text>
       <Text>{somaoutros}</Text> */}
-      <VictoryPie
-        data={data}
-        colorScale={["red", "blue", "green"]} // Cores para as fatias (opcional)
-        innerRadius={80}
-        height={350} // Define o raio interno (opcional)
-      ></VictoryPie>
+      <View style={Resultsty.graphqview}>
+        <VictoryPie
+          data={data}
+          colorScale={["red", "blue", "green"]} // Cores para as fatias (opcional)
+          innerRadius={80}
+          height={350} // Define o raio interno (opcional)
+        ></VictoryPie>
+      </View>
     </SafeAreaView>
   );
 };
