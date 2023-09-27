@@ -1,32 +1,38 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const Resultsty = StyleSheet.create({
   contanier: {
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    backgroundColor: "#F8F8FF",
-    marginTop: "5%",
+    backgroundColor: '#F8F8FF',
+    marginTop: '5%',
   },
   btnvoltardiv: {
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     padding: 20,
   },
   btn: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     height: 40,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     width: 100,
   },
   txtbtn: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
   },
   graphqview: {},
   textosgastos: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+  },
+  taskItem: {
+    color: 'black',
+  },
+  completedTask: {
+    backgroundColor: 'green',
   },
 });
 export default Resultsty;

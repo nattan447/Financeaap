@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
 import {
   ImageComponent,
   StyleSheet,
@@ -7,74 +7,101 @@ import {
   Button,
   SafeAreaView,
   TouchableOpacity,
-} from "react-native";
-import { useEffect, useState } from "react";
-import Resultsty from "../syles/resultsty";
-import Btnavigator from "./btnavigator";
+  FlatList,
+} from 'react-native';
+import { useEffect, useState } from 'react';
+import Resultsty from '../syles/resultsty';
+import Btnavigator from './btnavigator';
 import {
   VictoryTheme,
   VictoryChart,
   VictoryBar,
   VictoryPie,
-} from "victory-native";
+} from 'victory-native';
 
 const Result = ({ route, navigation }) => {
-  const { salario, valor, itenslazer, valorcomida, valorsaude, valoroutros } =
-    route.params;
+  const {
+    salario,
+    valor,
+    itenslazer,
+    valorcomida,
+    valorsaude,
+    valoroutros,
+    tasks,
+  } = route.params;
+  const [tasksmaped, SetTaksmaped] = useState([]);
+  const [checkedlazer, Setcheckedlazer] = useState({ color: 'red' });
 
   function retornar() {
-    navigation.navigate("home", { salario: salario });
+    navigation.navigate('home', { salario: salario });
   }
 
   const somalazer = itenslazer.reduce(
     (acc, current) => acc + Number(current),
-    0
+    0,
   );
   const somacomida = valorcomida.reduce(
     (acc, current) => acc + Number(current),
-    0
+    0,
   );
   const somasaude = valorsaude.reduce(
     (acc, current) => acc + Number(current),
-    0
+    0,
   );
   const somaoutros = valoroutros.reduce(
     (acc, current) => acc + Number(current),
-    0
+    0,
   );
   const somatotal = somacomida + somaoutros + somalazer + somasaude;
+  useEffect(() => {
+    //to tentando tirar as taskas repitidas
 
-  const tranformtoporcent = (value) => {
+    if (tranformtoporcentsalario(somalazer) <= 50) {
+      Setcheckedlazer({ color: 'green' });
+    }
+  }, []);
+
+  function tranformtoporcent(value) {
     return ((value * 100) / somatotal).toFixed(1);
-  };
+  }
+  function tranformtoporcentsalario(valor) {
+    return (valor * 100) / salario;
+  }
 
   useEffect(() => {}, []);
   const data = [
     tranformtoporcent(somacomida) == 0
       ? { x: null, y: null }
       : {
-          x: "Comida (" + tranformtoporcent(somacomida) + ") %",
+          x: 'Comida (' + tranformtoporcent(somacomida) + ') %',
           y: tranformtoporcent(somacomida),
         },
     tranformtoporcent(somasaude) == 0
       ? { x: null, y: null }
       : {
-          x: "Saúde (" + tranformtoporcent(somasaude) + ") %",
+          x: 'Saúde (' + tranformtoporcent(somasaude) + ') %',
           y: tranformtoporcent(somasaude),
         },
     tranformtoporcent(somalazer) == 0
       ? { x: null, y: null }
       : {
-          x: "Lazer  (" + tranformtoporcent(somalazer) + ")%",
+          x: 'Lazer  (' + tranformtoporcent(somalazer) + ')%',
           y: tranformtoporcent(somalazer),
         },
     tranformtoporcent(somaoutros) == 0
       ? { x: null, y: null }
       : {
-          x: "Outros (" + tranformtoporcent(somaoutros) + ") %",
+          x: 'Outros (' + tranformtoporcent(somaoutros) + ') %',
           y: tranformtoporcent(somaoutros),
         },
   ];
+  const rendertasks = ({ item }) => {
+    return (
+      <View>
+        <Text style={checkedlazer}>{item.label}</Text>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={Resultsty.contanier}>
@@ -85,9 +112,9 @@ const Result = ({ route, navigation }) => {
       </View>
       <Text style={Resultsty.textosgastos}>
         Seus gastos foram de :
-        {somatotal.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
+        {somatotal.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
         })}
       </Text>
       {/* <Text>{somalazer}</Text>
@@ -97,11 +124,19 @@ const Result = ({ route, navigation }) => {
       <View style={Resultsty.graphqview}>
         <VictoryPie
           data={data}
-          colorScale={["red", "blue", "green"]} // Cores para as fatias (opcional)
+          colorScale={['red', 'blue', 'green']} // Cores para as fatias (opcional)
           innerRadius={80}
           height={350} // Define o raio interno (opcional)
         ></VictoryPie>
       </View>
+
+      {tasks[0] ? (
+        <FlatList
+          data={tasks}
+          keyExtractor={(item) => item.value}
+          renderItem={rendertasks}
+        ></FlatList>
+      ) : undefined}
     </SafeAreaView>
   );
 };
