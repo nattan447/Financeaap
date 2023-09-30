@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Button,
   StyleSheet,
@@ -17,11 +17,6 @@ const data = [
   { label: 'Saúde', value: '3' },
   { label: 'Outros', value: '4' },
 ];
-const datatask = [
-  { label: 'Gastos com lazer 50% do salário', value: 50 },
-  { label: 'Gastos com comida 30% do salaŕio', value: 30 },
-  { label: 'Gastos com outras coisas em 20% do salário', value: 20 },
-];
 
 const DropdownComponent = ({ salario, navigation }) => {
   const { valor, Setvalor, Spendsinlazer } = useContext(areacontext);
@@ -34,6 +29,56 @@ const DropdownComponent = ({ salario, navigation }) => {
   const [isFocustask, setIsFocusTask] = useState(false);
   const [valueTask, SetvalueTask] = useState(undefined);
   const [arrayTask, SetarrayTask] = useState([]);
+  const [taskchek, Settaskcheck] = useState(false);
+
+  //estou tentando fazer uma task especifica ficar verde quando a meta é batida
+
+  useEffect(() => {
+    const somalazer = arraylazer.reduce(
+      (acc, current) => acc + Number(current),
+      0,
+    );
+    const somacomida = arrayComida.reduce(
+      (acc, current) => acc + Number(current),
+      0,
+    );
+    const somaoutros = arrayOutros.reduce(
+      (acc, current) => acc + Number(current),
+      0,
+    );
+
+    if (salarioporcent(somalazer).toFixed(2) <= 50) {
+      Settaskcheck(true);
+    }
+    if (salarioporcent(somacomida).toFixed(2) <= 30) {
+      Settaskcheck(true);
+    }
+    if (salarioporcent(somaoutros).toFixed(2) <= 20) {
+      Settaskcheck(true);
+    }
+  }, [arraylazer, arrayComida, arrayOutros]);
+
+  const datatask = [
+    {
+      label: 'Gastos com lazer 50% do salário',
+      value: 50,
+      completed: taskchek,
+    },
+    {
+      label: 'Gastos com comida 30% do salaŕio',
+      value: 30,
+      completed: taskchek,
+    },
+    {
+      label: 'Gastos com outras coisas em 20% do salário',
+      value: 20,
+      completed: taskchek,
+    },
+  ];
+
+  function salarioporcent(valor) {
+    return (valor * 100) / salario;
+  }
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -44,15 +89,20 @@ const DropdownComponent = ({ salario, navigation }) => {
 
   function handlevalues() {
     if (valueTask == 50 && !arrayTask.includes(datatask[0])) {
+      alert(taskchek);
       SetarrayTask((current) => [...current, datatask[0]]);
+      Settaskcheck(false);
     } else if (valueTask == 30 && !arrayTask.includes(datatask[1])) {
       SetarrayTask((current) => [...current, datatask[1]]);
+      Settaskcheck(false);
     } else if (valueTask == 20 && !arrayTask.includes(datatask[2])) {
       SetarrayTask((current) => [...current, datatask[2]]);
+      Settaskcheck(false);
     }
     if (value === 'Lazer') {
       //o valor é uma variavel que vem do add items
       Setarraylazer((current) => [...current, valor]); // pego os items que estão na categoria lazer
+
       Setvalor(undefined);
     } else if (value === 'Comida') {
       SetarrayComida((current) => [...current, valor]);

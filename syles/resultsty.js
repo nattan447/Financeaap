@@ -32,7 +32,7 @@ const Resultsty = StyleSheet.create({
     color: 'black',
   },
   completedTask: {
-    backgroundColor: 'green',
+    color: 'green',
   },
 });
 export default Resultsty;

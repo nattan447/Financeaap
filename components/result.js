@@ -30,7 +30,6 @@ const Result = ({ route, navigation }) => {
     tasks,
   } = route.params;
   const [tasksmaped, SetTaksmaped] = useState([]);
-  const [checkedlazer, Setcheckedlazer] = useState({ color: 'red' });
 
   function retornar() {
     navigation.navigate('home', { salario: salario });
@@ -53,14 +52,6 @@ const Result = ({ route, navigation }) => {
     0,
   );
   const somatotal = somacomida + somaoutros + somalazer + somasaude;
-  useEffect(() => {
-    //to tentando tirar as taskas repitidas
-
-    if (tranformtoporcentsalario(somalazer) <= 50) {
-      Setcheckedlazer({ color: 'green' });
-    }
-  }, []);
-
   function tranformtoporcent(value) {
     return ((value * 100) / somatotal).toFixed(1);
   }
@@ -96,9 +87,13 @@ const Result = ({ route, navigation }) => {
         },
   ];
   const rendertasks = ({ item }) => {
+    const taskstyle = item.completed
+      ? Resultsty.completedTask
+      : Resultsty.taskItem;
+
     return (
       <View>
-        <Text style={checkedlazer}>{item.label}</Text>
+        <Text style={taskstyle}>{item.label}</Text>
       </View>
     );
   };
