@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -6,16 +6,16 @@ import {
   View,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import areacontext from '../contexts/contextarea';
+} from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import areacontext from "../contexts/contextarea";
 
 const data = [
-  { label: 'Lazer', value: '1' },
-  { label: 'Comida', value: '2' },
-  { label: 'Saúde', value: '3' },
-  { label: 'Outros', value: '4' },
+  { label: "Lazer", value: "1" },
+  { label: "Comida", value: "2" },
+  { label: "Saúde", value: "3" },
+  { label: "Outros", value: "4" },
 ];
 
 const DropdownComponent = ({ salario, navigation }) => {
@@ -30,47 +30,33 @@ const DropdownComponent = ({ salario, navigation }) => {
   const [valueTask, SetvalueTask] = useState(undefined);
   const [arrayTask, SetarrayTask] = useState([]);
   const [taskchek, Settaskcheck] = useState(false);
+  const [somalazer, Setsomalzer] = useState(undefined);
 
   //estou tentando fazer uma task especifica ficar verde quando a meta é batida
 
+  let somacomida;
+  let somaoutros;
   useEffect(() => {
-    const somalazer = arraylazer.reduce(
-      (acc, current) => acc + Number(current),
-      0,
+    Setsomalzer(() =>
+      arraylazer.reduce((acc, current) => acc + Number(current), 0)
     );
-    const somacomida = arrayComida.reduce(
-      (acc, current) => acc + Number(current),
-      0,
-    );
-    const somaoutros = arrayOutros.reduce(
-      (acc, current) => acc + Number(current),
-      0,
-    );
-
-    if (salarioporcent(somalazer).toFixed(2) <= 50) {
-      Settaskcheck(true);
-    }
-    if (salarioporcent(somacomida).toFixed(2) <= 30) {
-      Settaskcheck(true);
-    }
-    if (salarioporcent(somaoutros).toFixed(2) <= 20) {
-      Settaskcheck(true);
-    }
-  }, [arraylazer, arrayComida, arrayOutros]);
+    // somacomida = arrayComida.reduce((acc, current) => acc + Number(current), 0);
+    // somaoutros = arrayOutros.reduce((acc, current) => acc + Number(current), 0);
+  }, [arraylazer, valor]);
 
   const datatask = [
     {
-      label: 'Gastos com lazer 50% do salário',
+      label: "Gastos com lazer 50% do salário",
       value: 50,
       completed: taskchek,
     },
     {
-      label: 'Gastos com comida 30% do salaŕio',
+      label: "Gastos com comida 30% do salaŕio",
       value: 30,
       completed: taskchek,
     },
     {
-      label: 'Gastos com outras coisas em 20% do salário',
+      label: "Gastos com outras coisas em 20% do salário",
       value: 20,
       completed: taskchek,
     },
@@ -82,43 +68,63 @@ const DropdownComponent = ({ salario, navigation }) => {
 
   const renderLabel = () => {
     if (value || isFocus) {
-      return <Text style={[styles.label, isFocus && { color: 'blue' }]}></Text>;
+      return <Text style={[styles.label, isFocus && { color: "blue" }]}></Text>;
     }
     return null;
   };
 
+  useEffect(() => {
+    //tenho que fazer o taskcheck ficar truen aqui dentro
+    if (valueTask == 50 && salarioporcent(somalazer).toFixed(2) <= 50) {
+      Settaskcheck(() => true);
+    }
+  }, [handlevalues]);
+  useState(() => {
+    //tenho que fazer o taskcheck ficar falso logo após atualizar aqui
+    Settaskcheck(() => false);
+  }, [taskchek]);
+
   function handlevalues() {
     if (valueTask == 50 && !arrayTask.includes(datatask[0])) {
-      alert(taskchek);
       SetarrayTask((current) => [...current, datatask[0]]);
-      Settaskcheck(false);
+      // if (salarioporcent(somalazer).toFixed(2) <= 50) {
+      //   tenho que fazer o taskcheck ficar truen aqui dentro
+      //   alert("é menor que 50%");
+      // }
     } else if (valueTask == 30 && !arrayTask.includes(datatask[1])) {
+      if (salarioporcent(somacomida).toFixed(2) <= 30) {
+        Settaskcheck(true);
+      }
       SetarrayTask((current) => [...current, datatask[1]]);
       Settaskcheck(false);
     } else if (valueTask == 20 && !arrayTask.includes(datatask[2])) {
+      if (salarioporcent(somaoutros).toFixed(2) <= 20) {
+        Settaskcheck(true);
+      }
       SetarrayTask((current) => [...current, datatask[2]]);
       Settaskcheck(false);
     }
-    if (value === 'Lazer') {
+    if (value === "Lazer") {
       //o valor é uma variavel que vem do add items
       Setarraylazer((current) => [...current, valor]); // pego os items que estão na categoria lazer
 
       Setvalor(undefined);
-    } else if (value === 'Comida') {
+    } else if (value === "Comida") {
       SetarrayComida((current) => [...current, valor]);
       Setvalor(undefined);
-    } else if (value === 'Saúde') {
+    } else if (value === "Saúde") {
       SetarraySaude((current) => [...current, valor]);
       Setvalor(undefined);
-    } else if (value === 'Outros') {
+    } else if (value === "Outros") {
       SetarrayOutros((current) => [...current, valor]);
       Setvalor(undefined);
-    } else alert('selecione um campo');
+    } else alert("selecione um campo");
   }
 
   function navigateResult() {
+    alert(taskchek);
     // quero pegar o array de lazer e ir para a outra página
-    navigation.navigate('resultado', {
+    navigation.navigate("resultado", {
       itenslazer: arraylazer,
       valorsaude: arraySaude,
       valorcomida: arrayComida,
@@ -132,7 +138,7 @@ const DropdownComponent = ({ salario, navigation }) => {
     <View style={styles.container}>
       {renderLabel()}
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
@@ -150,14 +156,14 @@ const DropdownComponent = ({ salario, navigation }) => {
         renderLeftIcon={() => (
           <AntDesign
             style={styles.icon}
-            color={isFocus ? 'gray' : 'black'}
+            color={isFocus ? "gray" : "black"}
             name="Safety"
             size={20}
           />
         )}
       />
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
@@ -175,7 +181,7 @@ const DropdownComponent = ({ salario, navigation }) => {
         renderLeftIcon={() => (
           <AntDesign
             style={styles.icon}
-            color={isFocustask ? 'gray' : 'black'}
+            color={isFocustask ? "gray" : "black"}
             name="Safety"
             size={20}
           />
@@ -196,12 +202,12 @@ export default DropdownComponent;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 16,
   },
   dropdown: {
     height: 50,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -212,8 +218,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   label: {
-    position: 'absolute',
-    backgroundColor: 'white',
+    position: "absolute",
+    backgroundColor: "white",
     left: 22,
     top: 8,
     zIndex: 999,
@@ -235,15 +241,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   btn: {
-    backgroundColor: '#333333',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#333333",
+    justifyContent: "center",
+    alignItems: "center",
     height: 40,
     width: 200,
     marginTop: 16,
     borderRadius: 10,
   },
   txtbtn: {
-    color: 'white',
+    color: "white",
   },
 });
