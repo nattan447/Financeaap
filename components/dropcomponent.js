@@ -44,6 +44,7 @@ const DropdownComponent = ({ salario, navigation }) => {
     // somaoutros = arrayOutros.reduce((acc, current) => acc + Number(current), 0);
   }, [arraylazer, valor]);
 
+  // no array datatask tenho que colocar uma key chamada completed task e o valor dela será o taskcheck
   const datatask = [
     {
       label: "Gastos com lazer 50% do salário",
@@ -81,20 +82,38 @@ const DropdownComponent = ({ salario, navigation }) => {
     Settaskcheck(() => false);
   }, [taskchek]);
 
+  //essa função tem o papel de não permitir que a mesma task se repita
+
+  function isrepeat(numbertask) {
+    const norepeattask = arrayTask.map((elemento) => {
+      if (elemento) {
+        if (elemento.value == datatask[numbertask].value) {
+          return true;
+        } else return false;
+      }
+    });
+    if (norepeattask[numbertask]) {
+      return true;
+    } else return false;
+  }
+
   function handlevalues() {
-    if (valueTask == 50 && !arrayTask.includes(datatask[0])) {
+    if (valueTask == 50 && !isrepeat(0)) {
       SetarrayTask((current) => [...current, datatask[0]]);
+
       // if (salarioporcent(somalazer).toFixed(2) <= 50) {
       //   tenho que fazer o taskcheck ficar truen aqui dentro
       //   alert("é menor que 50%");
       // }
-    } else if (valueTask == 30 && !arrayTask.includes(datatask[1])) {
+    }
+    if (valueTask == 30 && !isrepeat(1)) {
       if (salarioporcent(somacomida).toFixed(2) <= 30) {
         Settaskcheck(true);
       }
       SetarrayTask((current) => [...current, datatask[1]]);
       Settaskcheck(false);
-    } else if (valueTask == 20 && !arrayTask.includes(datatask[2])) {
+    }
+    if (valueTask == 20 && !isrepeat(2)) {
       if (salarioporcent(somaoutros).toFixed(2) <= 20) {
         Settaskcheck(true);
       }
