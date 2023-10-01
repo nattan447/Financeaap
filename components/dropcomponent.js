@@ -48,17 +48,14 @@ const DropdownComponent = ({ salario, navigation }) => {
     {
       label: "Gastos com lazer 50% do salário",
       value: 50,
-      completed: taskchek,
     },
     {
       label: "Gastos com comida 30% do salaŕio",
       value: 30,
-      completed: taskchek,
     },
     {
       label: "Gastos com outras coisas em 20% do salário",
       value: 20,
-      completed: taskchek,
     },
   ];
 
