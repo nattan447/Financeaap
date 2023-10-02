@@ -34,35 +34,63 @@ const DropdownComponent = ({ salario, navigation }) => {
 
   //estou tentando fazer uma task especifica ficar verde quando a meta é batida
 
-  let somacomida;
-  let somaoutros;
   useEffect(() => {
-    Setsomalzer(() =>
-      arraylazer.reduce((acc, current) => acc + Number(current), 0)
+    const somalazer = arraylazer.reduce(
+      (acc, current) => acc + Number(current),
+      0
     );
-    // somacomida = arrayComida.reduce((acc, current) => acc + Number(current), 0);
-    // somaoutros = arrayOutros.reduce((acc, current) => acc + Number(current), 0);
-  }, [arraylazer, valor]);
+    const somacomida = arrayComida.reduce(
+      (acc, current) => acc + Number(current),
+      0
+    );
+    const somaoutros = arrayOutros.reduce(
+      (acc, current) => acc + Number(current),
+      0
+    );
+
+    if (salarioporcent(somalazer).toFixed(2) <= 50) {
+      Settaskcheck(true);
+      setTimeout(() => {
+        Settaskcheck(false);
+      }, 10000);
+    }
+    if (salarioporcent(somacomida).toFixed(2) <= 30) {
+      Settaskcheck(true);
+      setTimeout(() => {
+        Settaskcheck(false);
+      }, 10000);
+    }
+    if (salarioporcent(somaoutros).toFixed(2) <= 20) {
+      Settaskcheck(true);
+      setTimeout(() => {
+        Settaskcheck(false);
+      }, 10000);
+    }
+  }, [arraylazer, arrayComida, arrayOutros]);
+  // useState(() => {
+  //   Settaskcheck(() => false);
+  // }, [taskchek]);
 
   // no array datatask tenho que colocar uma key chamada completed task e o valor dela será o taskcheck
   const datatask = [
     {
       label: "Gastos com lazer 50% do salário",
       value: 50,
+      completed: taskchek,
     },
     {
       label: "Gastos com comida 30% do salaŕio",
       value: 30,
+      completed: taskchek,
     },
     {
       label: "Gastos com outras coisas em 20% do salário",
       value: 20,
+      completed: taskchek,
     },
   ];
 
-  function salarioporcent(valor) {
-    return (valor * 100) / salario;
-  }
+  const salarioporcent = (valor) => (valor * 100) / salario;
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -70,17 +98,6 @@ const DropdownComponent = ({ salario, navigation }) => {
     }
     return null;
   };
-
-  useEffect(() => {
-    //tenho que fazer o taskcheck ficar truen aqui dentro
-    if (valueTask == 50 && salarioporcent(somalazer).toFixed(2) <= 50) {
-      Settaskcheck(() => true);
-    }
-  }, [handlevalues]);
-  useState(() => {
-    //tenho que fazer o taskcheck ficar falso logo após atualizar aqui
-    Settaskcheck(() => false);
-  }, [taskchek]);
 
   //essa função tem o papel de não permitir que a mesma task se repita
 
@@ -98,32 +115,20 @@ const DropdownComponent = ({ salario, navigation }) => {
   }
 
   function handlevalues() {
-    if (valueTask == 50 && !isrepeat(0)) {
+    if (valueTask === 50 && !isrepeat(0)) {
       SetarrayTask((current) => [...current, datatask[0]]);
-
-      // if (salarioporcent(somalazer).toFixed(2) <= 50) {
-      //   tenho que fazer o taskcheck ficar truen aqui dentro
-      //   alert("é menor que 50%");
-      // }
     }
-    if (valueTask == 30 && !isrepeat(1)) {
-      if (salarioporcent(somacomida).toFixed(2) <= 30) {
-        Settaskcheck(true);
-      }
+    if (valueTask === 30 && !isrepeat(1)) {
       SetarrayTask((current) => [...current, datatask[1]]);
       Settaskcheck(false);
     }
-    if (valueTask == 20 && !isrepeat(2)) {
-      if (salarioporcent(somaoutros).toFixed(2) <= 20) {
-        Settaskcheck(true);
-      }
+    if (valueTask === 20 && !isrepeat(2)) {
       SetarrayTask((current) => [...current, datatask[2]]);
       Settaskcheck(false);
     }
     if (value === "Lazer") {
       //o valor é uma variavel que vem do add items
       Setarraylazer((current) => [...current, valor]); // pego os items que estão na categoria lazer
-
       Setvalor(undefined);
     } else if (value === "Comida") {
       SetarrayComida((current) => [...current, valor]);
