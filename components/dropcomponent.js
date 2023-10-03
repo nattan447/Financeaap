@@ -30,45 +30,46 @@ const DropdownComponent = ({ salario, navigation }) => {
   const [valueTask, SetvalueTask] = useState(undefined);
   const [arrayTask, SetarrayTask] = useState([]);
   const [taskchek, Settaskcheck] = useState(false);
-  const [somalazer, Setsomalzer] = useState(undefined);
 
   //estou tentando fazer uma task especifica ficar verde quando a meta é batida
 
   useEffect(() => {
-    const somalazer = arraylazer.reduce(
-      (acc, current) => acc + Number(current),
-      0
-    );
-    const somacomida = arrayComida.reduce(
-      (acc, current) => acc + Number(current),
-      0
-    );
-    const somaoutros = arrayOutros.reduce(
-      (acc, current) => acc + Number(current),
-      0
-    );
-
-    if (salarioporcent(somalazer).toFixed(2) <= 50) {
-      Settaskcheck(true);
-      setTimeout(() => {
-        Settaskcheck(false);
-      }, 10000);
-    }
-    if (salarioporcent(somacomida).toFixed(2) <= 30) {
-      Settaskcheck(true);
-      setTimeout(() => {
-        Settaskcheck(false);
-      }, 10000);
-    }
-    if (salarioporcent(somaoutros).toFixed(2) <= 20) {
-      Settaskcheck(true);
-      setTimeout(() => {
-        Settaskcheck(false);
-      }, 10000);
-    }
+    // to no caminho certo
+    // const somalazer = arraylazer.reduce(
+    //   (acc, current) => acc + Number(current),
+    //   0
+    // );
+    // const somacomida = arrayComida.reduce(
+    //   (acc, current) => acc + Number(current),
+    //   0
+    // );
+    // const somaoutros = arrayOutros.reduce(
+    //   (acc, current) => acc + Number(current),
+    //   0
+    // );
+    // if (salarioporcent(somalazer).toFixed(2) <= 50 && value === "Lazer") {
+    //   Settaskcheck(() => true);
+    // }
+    // if (salarioporcent(somacomida).toFixed(2) <= 30) {
+    //   Settaskcheck(true);
+    //   setTimeout(() => {
+    //     Settaskcheck(false);
+    //   }, 10000);
+    // }
+    // if (salarioporcent(somaoutros).toFixed(2) <= 20) {
+    //   Settaskcheck(true);
+    //   setTimeout(() => {
+    //     Settaskcheck(false);
+    //   }, 10000);
+    // }
   }, [arraylazer, arrayComida, arrayOutros]);
-  // useState(() => {
-  //   Settaskcheck(() => false);
+  // useEffect(() => {
+  //   const mytime = setTimeout(() => {
+  //     Settaskcheck(false);
+  //   }, 10000);
+  //   return () => {
+  //     clearTimeout(mytime);
+  //   };
   // }, [taskchek]);
 
   // no array datatask tenho que colocar uma key chamada completed task e o valor dela será o taskcheck
@@ -102,30 +103,37 @@ const DropdownComponent = ({ salario, navigation }) => {
   //essa função tem o papel de não permitir que a mesma task se repita
 
   function isrepeat(numbertask) {
-    const norepeattask = arrayTask.map((elemento) => {
-      if (elemento) {
-        if (elemento.value == datatask[numbertask].value) {
-          return true;
-        } else return false;
-      }
-    });
-    if (norepeattask[numbertask]) {
-      return true;
-    } else return false;
+    // if (arrayTask[0]) {
+    //   arrayTask.map((elemeto) => alert(elemeto.value));
+    //   for (let i = 0; i < arrayTask.length; i++) {
+    //     if (arrayTask[i].value == datatask[numbertask].value) {
+    //       return true;
+    //     } else return false;
+    //   }
+    // } else return false;
+
+    if (arrayTask[0]) {
+      const norepeattask = arrayTask.filter(
+        (elemento) => elemento.value == datatask[numbertask].value
+      );
+      if (norepeattask[0]) {
+        return true;
+      } else return false;
+    }
+    return false;
+    // const norepeattask = arrayTask.map((elemento) => {
+    //   if (elemento) {
+    //     if (elemento.value == datatask[numbertask].value) {
+    //       return true;
+    //     } else return false;
+    //   }
+    // });
+    // if (norepeattask[numbertask]) {
+    //   return true;
+    // } else return false;
   }
 
   function handlevalues() {
-    if (valueTask === 50 && !isrepeat(0)) {
-      SetarrayTask((current) => [...current, datatask[0]]);
-    }
-    if (valueTask === 30 && !isrepeat(1)) {
-      SetarrayTask((current) => [...current, datatask[1]]);
-      Settaskcheck(false);
-    }
-    if (valueTask === 20 && !isrepeat(2)) {
-      SetarrayTask((current) => [...current, datatask[2]]);
-      Settaskcheck(false);
-    }
     if (value === "Lazer") {
       //o valor é uma variavel que vem do add items
       Setarraylazer((current) => [...current, valor]); // pego os items que estão na categoria lazer
@@ -140,11 +148,19 @@ const DropdownComponent = ({ salario, navigation }) => {
       SetarrayOutros((current) => [...current, valor]);
       Setvalor(undefined);
     } else alert("selecione um campo");
+
+    if (valueTask === 50 && isrepeat(0) === false) {
+      SetarrayTask((current) => [...current, datatask[0]]);
+    } else if (valueTask === 30 && isrepeat(1) === false) {
+      SetarrayTask((current) => [...current, datatask[1]]);
+    } else if (valueTask === 20 && isrepeat(2) === false) {
+      SetarrayTask((current) => [...current, datatask[2]]);
+    }
   }
 
   function navigateResult() {
-    alert(taskchek);
     // quero pegar o array de lazer e ir para a outra página
+
     navigation.navigate("resultado", {
       itenslazer: arraylazer,
       valorsaude: arraySaude,
