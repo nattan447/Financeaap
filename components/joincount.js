@@ -29,9 +29,6 @@ export default function Login({ navigation, route }) {
       navigation.navigate("Salary", { user: user });
     } else alert("deu erro");
   };
-  const entrar = () => {
-    navigation.navigate("joincount");
-  };
   return (
     <View style={Loginsty.container}>
       <View style={Loginsty.loginview}>
@@ -56,10 +53,7 @@ export default function Login({ navigation, route }) {
             ></TextInput>
           </View>
           <TouchableOpacity onPress={login} style={Loginsty.loginbtn}>
-            <Text style={{ color: "white" }}>Cadastrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={entrar} style={Loginsty.hascountbtn}>
-            <Text style={{ color: "white" }}>ja possui conta?</Text>
+            <Text style={{ color: "white" }}>entrar</Text>
           </TouchableOpacity>
         </View>
       </View>

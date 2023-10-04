@@ -4,6 +4,8 @@ const Homesty = StyleSheet.create({
   contanier: {
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
+    backgroundColor: "white",
   },
   salarytxt: {
     fontSize: 60,
@@ -12,6 +14,20 @@ const Homesty = StyleSheet.create({
     backgroundColor: "white",
     height: 200,
     justifyContent: "center",
+  },
+  userpainel: {
+    marginTop: "10%",
+    width: "80%",
+    alignItems: "center",
+    backgroundColor: "#333333",
+    height: "16%",
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  Txtuser: {
+    color: "white",
+    margin: 10,
   },
 });
 export default Homesty;

@@ -5,6 +5,7 @@ import Home from "./components/home";
 import Salary from "./components/salary";
 import Result from "./components/result";
 import Additem from "./components/additem";
+import Joincout from "./components/joincount";
 import DropdownComponent from "./components/dropcomponent";
 import { VictoryTheme, VictoryChart, VictoryBar } from "victory-native";
 
@@ -24,8 +25,35 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name="login"
-          options={{ title: null }}
+          options={{
+            title: "Financee",
+            headerStyle: {
+              backgroundColor: "black",
+            },
+            headerTitleAlign: "center",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontSize: 34,
+              fontWeight: "bold",
+            },
+          }}
           component={Login}
+        />
+        <Stack.Screen
+          name="joincount"
+          options={{
+            title: "Financee",
+            headerStyle: {
+              backgroundColor: "black",
+            },
+            headerTitleAlign: "center",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontSize: 34,
+              fontWeight: "bold",
+            },
+          }}
+          component={Joincout}
         />
         <Stack.Screen name="Salary" options={{}} component={Salary} />
         <Stack.Screen

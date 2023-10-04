@@ -103,15 +103,6 @@ const DropdownComponent = ({ salario, navigation }) => {
   //essa função tem o papel de não permitir que a mesma task se repita
 
   function isrepeat(numbertask) {
-    // if (arrayTask[0]) {
-    //   arrayTask.map((elemeto) => alert(elemeto.value));
-    //   for (let i = 0; i < arrayTask.length; i++) {
-    //     if (arrayTask[i].value == datatask[numbertask].value) {
-    //       return true;
-    //     } else return false;
-    //   }
-    // } else return false;
-
     if (arrayTask[0]) {
       const norepeattask = arrayTask.filter(
         (elemento) => elemento.value == datatask[numbertask].value
@@ -121,16 +112,6 @@ const DropdownComponent = ({ salario, navigation }) => {
       } else return false;
     }
     return false;
-    // const norepeattask = arrayTask.map((elemento) => {
-    //   if (elemento) {
-    //     if (elemento.value == datatask[numbertask].value) {
-    //       return true;
-    //     } else return false;
-    //   }
-    // });
-    // if (norepeattask[numbertask]) {
-    //   return true;
-    // } else return false;
   }
 
   function handlevalues() {
@@ -149,18 +130,43 @@ const DropdownComponent = ({ salario, navigation }) => {
       Setvalor(undefined);
     } else alert("selecione um campo");
 
-    if (valueTask === 50 && isrepeat(0) === false) {
-      SetarrayTask((current) => [...current, datatask[0]]);
-    } else if (valueTask === 30 && isrepeat(1) === false) {
-      SetarrayTask((current) => [...current, datatask[1]]);
-    } else if (valueTask === 20 && isrepeat(2) === false) {
-      SetarrayTask((current) => [...current, datatask[2]]);
-    }
+    // if (valueTask === 50 && isrepeat(0) === false) {
+    //   SetarrayTask((current) => [...current, datatask[0]]);
+    // } else if (valueTask === 30 && isrepeat(1) === false) {
+    //   SetarrayTask((current) => [...current, datatask[1]]);
+    // } else if (valueTask === 20 && isrepeat(2) === false) {
+    //   SetarrayTask((current) => [...current, datatask[2]]);
+    // }
   }
+
+  useEffect(() => {
+    const somalazer = arraylazer.reduce(
+      (acc, current) => acc + Number(current),
+      0
+    );
+
+    if (
+      salarioporcent(somalazer).toFixed(2) <= 50 &&
+      value === "Lazer" &&
+      valueTask === 50
+    ) {
+      Settaskcheck(true);
+    }
+    if (valueTask === 50 && !isrepeat(0)) {
+      SetarrayTask((current) => [...current, datatask[0]]);
+    }
+    if (valueTask === 30 && !isrepeat(1)) {
+      SetarrayTask((current) => [...current, datatask[1]]);
+      Settaskcheck(false);
+    }
+    if (valueTask === 20 && !isrepeat(2)) {
+      SetarrayTask((current) => [...current, datatask[2]]);
+      Settaskcheck(false);
+    }
+  }, [arraylazer, arrayComida, arrayOutros, arraySaude, taskchek]);
 
   function navigateResult() {
     // quero pegar o array de lazer e ir para a outra página
-
     navigation.navigate("resultado", {
       itenslazer: arraylazer,
       valorsaude: arraySaude,
@@ -241,9 +247,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 16,
+    flex: 1,
   },
   dropdown: {
-    height: 50,
+    height: "14%",
     borderColor: "gray",
     borderWidth: 0.5,
     borderRadius: 8,

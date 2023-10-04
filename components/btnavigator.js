@@ -17,7 +17,9 @@ export default function Btnavigator({ listlazer, salario, route, navigation }) {
   return (
     <View style={buttonstyle.contanier}>
       <View style={{ marginTop: 60 }}>
-        <Text style={{ textAlign: "center" }}>atual salário </Text>
+        <Text style={{ textAlign: "center", fontSize: 20 }}>
+          atual salário{" "}
+        </Text>
         <Text style={{ fontSize: 40, fontWeight: "bold" }}>
           {Number(salario).toLocaleString("pt-BR", {
             style: "currency",
@@ -75,18 +77,19 @@ const buttonstyle = StyleSheet.create({
   contanier: {
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
   },
 
   salarytxt: {
     fontSize: 60,
   },
   selectscreen: {
-    backgroundColor: "white",
+    backgroundColor: "#333333",
     height: 100,
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    marginTop: "30%",
+    marginTop: "20%",
     borderRadius: 10,
     borderColor: "gray",
     borderWidth: 1,
