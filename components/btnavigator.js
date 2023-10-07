@@ -55,20 +55,6 @@ export default function Btnavigator({ listlazer, salario, route, navigation }) {
             style={{ height: 40, width: 40 }}
           ></Image>
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={buttonstyle.btns}
-          onPress={() => {
-            navigation.navigate('resultado', {
-              salario: salario,
-              listlazer: listlazer,
-            });
-          }}
-        >
-          <Image
-            source={require('../assets/money.png')}
-            style={{ height: 40, width: 40 }}
-          ></Image>
-        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -97,11 +83,13 @@ const buttonstyle = StyleSheet.create({
   },
   btns: {
     marginHorizontal: 10,
-    backgroundColor: "#D3D3D3",
+    backgroundColor: "white",
     height: 60,
     justifyContent: "center",
     borderRadius: 10,
     width: 80,
     alignItems: "center",
+    borderWidth: 2,
+    borderColor: "black",
   },
 });

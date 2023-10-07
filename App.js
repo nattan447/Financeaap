@@ -55,7 +55,13 @@ export default function App() {
           }}
           component={Joincout}
         />
-        <Stack.Screen name="Salary" options={{}} component={Salary} />
+        <Stack.Screen
+          name="Salary"
+          options={{
+            title: "salario",
+          }}
+          component={Salary}
+        />
         <Stack.Screen
           name="home"
           options={{

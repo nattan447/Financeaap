@@ -21,9 +21,11 @@ const Homesty = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#333333",
     height: "16%",
-    borderRadius: 10,
+    borderRadius: 14,
     flexDirection: "row",
     justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "black",
   },
   Txtuser: {
     color: "white",

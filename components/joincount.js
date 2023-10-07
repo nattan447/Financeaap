@@ -16,10 +16,14 @@ import Loginsty from "../syles/loginsty";
 export default function Login({ navigation, route }) {
   const [user, Setuser] = useState(undefined);
   const [pass, Setpass] = useState(undefined);
+
   if (route.params) {
     var { usuario, senha } = route.params;
   }
-
+  function isemailvalid(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
   const handleuser = (userr) => {
     Setuser(userr);
   };
@@ -28,7 +32,7 @@ export default function Login({ navigation, route }) {
   };
 
   const login = () => {
-    if (user === usuario && pass == senha) {
+    if (user === usuario && pass == senha && isemailvalid(user)) {
       navigation.navigate("Salary", { user: user });
     } else alert("login ou senhas incorretos");
   };

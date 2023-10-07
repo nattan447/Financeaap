@@ -23,20 +23,28 @@ export default function Login({ navigation, route }) {
   const handlepass = (pin) => {
     Setpass(pin);
   };
+  function isemailvalid(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
   const criar = () => {
     let usuario = user;
     let senha = pass;
-    if (usuario.length >= 5 && senha.length >= 3) {
+    if (usuario.length >= 5 && senha.length >= 3 && isemailvalid(usuario)) {
       alert("cadastro feito com sucesso");
       navigation.navigate("joincount", { usuario: usuario, senha: senha });
-    } else if (usuario.length < 5 && senha.length < 3) {
+    } else if (
+      usuario.length < 5 &&
+      senha.length < 3 &&
+      isemailvalid(usuario)
+    ) {
       alert(
         "o nome deve possuir pelo menos 5 digitos e a senha deve possuir pelo menos 3 digitos "
       );
-    } else if (senha.length < 3) {
+    } else if (senha.length < 3 && isemailvalid(usuario)) {
       alert("a senha deve possuir pelo menos 3 digitos");
     } else {
-      alert("o nome deve possuir pelo menos 5 digitos ");
+      alert("modelo de email invalido");
     }
   };
   const entrar = () => {

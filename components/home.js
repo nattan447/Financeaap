@@ -21,6 +21,9 @@ export default function Home({ route, navigation }) {
   }
   return (
     <View style={Homestyle.contanier}>
+      <Text style={{ fontSize: 50, fontWeight: "bold", color: "black" }}>
+        Financee
+      </Text>
       <Btnavigator navigation={navigation} salario={salario} />
       <View style={Homestyle.userpainel}>
         <Text style={Homestyle.Txtuser}>OLá, {user}</Text>
