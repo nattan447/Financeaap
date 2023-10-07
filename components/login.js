@@ -23,11 +23,21 @@ export default function Login({ navigation, route }) {
   const handlepass = (pin) => {
     Setpass(pin);
   };
-
-  const login = () => {
-    if (user === "admin" && pass == "123") {
-      navigation.navigate("Salary", { user: user });
-    } else alert("deu erro");
+  const criar = () => {
+    let usuario = user;
+    let senha = pass;
+    if (usuario.length >= 5 && senha.length >= 3) {
+      alert("cadastro feito com sucesso");
+      navigation.navigate("joincount", { usuario: usuario, senha: senha });
+    } else if (usuario.length < 5 && senha.length < 3) {
+      alert(
+        "o nome deve possuir pelo menos 5 digitos e a senha deve possuir pelo menos 3 digitos "
+      );
+    } else if (senha.length < 3) {
+      alert("a senha deve possuir pelo menos 3 digitos");
+    } else {
+      alert("o nome deve possuir pelo menos 5 digitos ");
+    }
   };
   const entrar = () => {
     navigation.navigate("joincount");
@@ -55,7 +65,7 @@ export default function Login({ navigation, route }) {
               onChangeText={handlepass}
             ></TextInput>
           </View>
-          <TouchableOpacity onPress={login} style={Loginsty.loginbtn}>
+          <TouchableOpacity onPress={criar} style={Loginsty.loginbtn}>
             <Text style={{ color: "white" }}>Cadastrar</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={entrar} style={Loginsty.hascountbtn}>

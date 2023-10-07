@@ -16,6 +16,9 @@ import Loginsty from "../syles/loginsty";
 export default function Login({ navigation, route }) {
   const [user, Setuser] = useState(undefined);
   const [pass, Setpass] = useState(undefined);
+  if (route.params) {
+    var { usuario, senha } = route.params;
+  }
 
   const handleuser = (userr) => {
     Setuser(userr);
@@ -25,9 +28,9 @@ export default function Login({ navigation, route }) {
   };
 
   const login = () => {
-    if (user === "admin" && pass == "123") {
+    if (user === usuario && pass == senha) {
       navigation.navigate("Salary", { user: user });
-    } else alert("deu erro");
+    } else alert("login ou senhas incorretos");
   };
   return (
     <View style={Loginsty.container}>

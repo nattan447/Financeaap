@@ -13,7 +13,6 @@ import Contextsalario from "../contexts/contextsalary";
 import areacontext from "../contexts/contextarea";
 import Homestyle from "../syles/homesty";
 import Btnavigator from "./btnavigator";
-
 export default function Home({ route, navigation }) {
   //estou tentando passar os valores do input da outra tela para a home e da home para outra tela dnv, pois quando eu entro na home dps de utilizar a segunda tela a segunda tela se destroi e os dados se perdem , então tenho que descobrir uma maneira de armezar esses dados em algum lugar sem o banco
   const [couter, Setcounter] = useState(0);

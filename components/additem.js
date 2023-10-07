@@ -21,9 +21,7 @@ import DropdownComponent from "./dropcomponent";
 const Additem = ({ route, navigation }) => {
   const { salario } = route.params;
   const [valor, Setvalor] = useState(undefined);
-
   const [Spendsinlazer, SetSpendslazer] = useState(undefined);
-
   const handlevalue = (it) => {
     Setvalor(it);
   };
